@@ -26,19 +26,24 @@ app.use(LikeRoute);
 app.use(SearchRoute);
 app.use(UserRoutes);
 
-
 (async () => {
   try {
     await sequelize.authenticate();
-    console.log('Koneksi ke database berhasil terhubung');
+    // console.log('Koneksi ke database berhasil terhubung');
 
     // Sinkronisasi struktur tabel
-    await sequelize.sync({ alter: true });
-    console.log('Struktur tabel berhasil disinkronisasi');
+    await sequelize.sync({
+      alter: true
+    });
+    // console.log('Struktur tabel berhasil disinkronisasi');
 
     // Lakukan hubungan antara model Report dan Like
-    Report.hasMany(Like, { foreignKey: 'reportId' });
-    Like.belongsTo(Report, { foreignKey: 'reportId' });
+    Report.hasMany(Like, {
+      foreignKey: 'reportId'
+    });
+    Like.belongsTo(Report, {
+      foreignKey: 'reportId'
+    });
   } catch (error) {
     console.error('Gagal terhubung ke database:', error);
   }
@@ -47,7 +52,7 @@ app.use(UserRoutes);
 (async () => {
   try {
     await sequelize.authenticate();
-    console.log('Koneksi ke database berhasil terhubung');
+    // console.log('Koneksi ke database berhasil terhubung');
   } catch (error) {
     console.error('Gagal terhubung ke database:', error);
   }
