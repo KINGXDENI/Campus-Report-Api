@@ -17,7 +17,6 @@ const Report = db.define(
     URL: DataTypes.STRING,
     likes: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       defaultValue: 0,
     },
     status: {
