@@ -16,6 +16,12 @@ app.use(express.urlencoded({
 app.use(express.static('public'));
 app.use(UserRoutes);
 
+app.get('/', (req, res)=>{
+  res.json({
+    message:"Welcome To Api Campus Report"
+  })
+})
+
 const {
   PORT
 } = process.env;
