@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const {
-  MONGODB_URI
+  MONGO_URI
 } = process.env;
 
 const db = mongoose.connection;
@@ -14,7 +14,7 @@ db.once('open', () => {
   console.log('Connected to MongoDB');
 });
 
-mongoose.connect(MONGODB_URI, {
+mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
