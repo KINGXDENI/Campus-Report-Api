@@ -1,11 +1,11 @@
 import express from 'express';
 import cors from 'cors';
-import connectDB from './config/Database.js';
-// import reportRoutes from './routes/ReportRoute.js';
-// import likeRoutes from './routes/LikeRoute.js';
-// import searchRoutes from './routes/SearchRoute.js';
-import userRoutes from './routes/UserRoute.js';
+import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+// import ReportRoute from './routes/ReportRoute.js';
+// import LikeRoute from './routes/LikeRoute.js';
+// import SearchRoute from './routes/SearchRoute.js';
+import UserRoutes from './routes/UserRoute.js';
 
 dotenv.config();
 
@@ -16,11 +16,26 @@ app.use(express.json());
 app.use(express.urlencoded({
   extended: true
 }));
-// app.use(reportRoutes);
-// app.use(likeRoutes);
-// app.use(searchRoutes);
-app.use(userRoutes);
+app.use(express.static('public'));
+// app.use(ReportRoute);
+// app.use(LikeRoute);
+// app.use(SearchRoute);
+app.use(UserRoutes);
 
-connectDB();
+const {
+  MONGODB_URI,
+  PORT
+} = process.env;
 
-app.listen(process.env.PORT, () => console.log('Server is running...'));
+mongoose.connect(MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', () => {
+  console.log('Connected to MongoDB');
+  app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+});

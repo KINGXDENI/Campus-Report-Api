@@ -44,13 +44,13 @@ const UserController = {
 
       if (user.role === 'admin') {
         return res.status(200).json({
-          id: user._id,
+          id: user.id,
           role: 'admin',
           message: 'Admin login successful',
         });
       } else {
         return res.status(200).json({
-          id: user._id,
+          id: user.id,
           role: 'user',
           message: 'User login successful',
         });
@@ -139,7 +139,7 @@ const UserController = {
         message: 'Internal server error'
       });
     }
-  },
+  }
 };
 
 export default UserController;
