@@ -84,15 +84,31 @@ const UserController = {
   
   getUser: async (req, res) => {
     try {
-      const userId = mongoose.Types.ObjectId(req.params.id); // Mengonversi string menjadi Object ID
-      const user = await User.findById(userId);
-      res.json(user);
+      const {
+        userId
+      } = req.params;
+
+      // Cari pengguna berdasarkan ID
+      const user = await User.findOne({
+        _id: userId
+      });
+
+      if (!user) {
+        return res.status(404).json({
+          message: 'User not found'
+        });
+      }
+
+      // Mengembalikan data pengguna
+      return res.status(200).json(user);
     } catch (error) {
-      res.status(500).json({
-        error: error.message
+      console.error('Error while getting user:', error);
+      return res.status(500).json({
+        message: 'Internal server error'
       });
     }
   }
+
 };
 
 export default UserController;
