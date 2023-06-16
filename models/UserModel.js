@@ -5,18 +5,36 @@ const {
 } = mongoose;
 
 const UserSchema = new Schema({
-  name: {
-    type: String,
-    required: [true, 'User name is required'],
-    unique: true,
-  },
   email: {
     type: String,
-    required: [true, 'Email is required'],
+    required: true,
     unique: true,
   },
+  password: {
+    type: String,
+    required: true,
+  },
+  role: {
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user',
+  },
+  nama: {
+    type: String,
+  },
+  nim: {
+    type: String,
+  },
+  jurusan: {
+    type: String,
+  },
+  fakultas: {
+    type: String,
+  },
 }, {
-  timestamps: true,
+  timestamps: true
 });
 
-export default mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
+
+export default User;
