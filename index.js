@@ -18,7 +18,7 @@ app.use(UserRoutes);
 
 app.get('/', (req, res)=>{
   res.json({
-    message:"Welcome To Api Campus Report"
+    message:"Welcome To Api Campus Reports"
   })
 })
 
